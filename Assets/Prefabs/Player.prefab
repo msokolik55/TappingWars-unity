@@ -242,7 +242,11 @@ GameObject:
   - component: {fileID: 4113912944160904829}
   - component: {fileID: 4113912944160904828}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: Health
+=======
+  m_Name: Player
+>>>>>>> ec8f1b2e14004d2f1c052c6b2e9d157a69ec013b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
