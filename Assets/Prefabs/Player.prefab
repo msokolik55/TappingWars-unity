@@ -242,11 +242,7 @@ GameObject:
   - component: {fileID: 4113912944160904829}
   - component: {fileID: 4113912944160904828}
   m_Layer: 5
-<<<<<<< HEAD
-  m_Name: Health
-=======
   m_Name: Player
->>>>>>> ec8f1b2e14004d2f1c052c6b2e9d157a69ec013b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
