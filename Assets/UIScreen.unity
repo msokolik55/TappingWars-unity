@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 625172613}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -553,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7254098c10a02a741be99d9ef357fa29, type: 3}
@@ -1001,6 +1001,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7254098c10a02a741be99d9ef357fa29, type: 3}
 --- !u!224 &1517591323 stripped
@@ -1134,7 +1139,7 @@ PrefabInstance:
     - target: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7254098c10a02a741be99d9ef357fa29, type: 3}
@@ -1232,13 +1237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efb0e3147e19884d8f8b23874722b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUnit: {fileID: 1952630647}
---- !u!1 &1952630647 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
-    type: 3}
-  m_PrefabInstance: {fileID: 1890797756474718758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2040052935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,6 +1628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7068746793300451451, guid: 7254098c10a02a741be99d9ef357fa29,
         type: 3}

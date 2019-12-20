@@ -13,7 +13,7 @@ public class Player : NetworkBehaviour
 
     public Image healthBar;
     public Text numberOfCoins;
-
+    public GameObject playerPrefab;
 
     public Player(float _health, string _name, int _money, float _damage)
     {
@@ -37,15 +37,21 @@ public class Player : NetworkBehaviour
     }
 
     public void Repair()
-    {
-        if (health + 10f > 100)
+    {   
+        if ((money >= 10) && (health < 100))
         {
-            health = 100f;
-        }else
-        {
-            health += 10f;
+            if (health + 10f > 100)
+            {
+                health = 100f;
+            }
+            else
+            {
+                health += 10f;
+            }
+            healthBar.fillAmount = health / 100f;
+            money -= 10;
+            numberOfCoins.text = money.ToString();
         }
-        healthBar.fillAmount = health / 100f; 
     }
 
     public void IncreaseDamage()
@@ -61,4 +67,16 @@ public class Player : NetworkBehaviour
         }
     }
 
+    public void Start()
+    {   
+        if (isLocalPlayer == false)
+        {
+            return;
+        }
+
+        // Spawn Local Player always on the same position
+        playerPrefab.transform.position = new Vector3(-20, -120, 0);
+        NetworkServer.Spawn(playerPrefab);
+        playerPrefab.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+    }
 }
