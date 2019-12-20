@@ -73,7 +73,12 @@ public class Player : NetworkBehaviour
         {
             return;
         }
+        CmdSpawnMyUnit();
+    }
 
+    [Command]
+    void CmdSpawnMyUnit()
+    {
         // Spawn Local Player always on the same position
         playerPrefab.transform.position = new Vector3(-20, -120, 0);
         NetworkServer.Spawn(playerPrefab);
