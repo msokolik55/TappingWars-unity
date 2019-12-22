@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class Items : NetworkBehaviour
+public class Items : MonoBehaviour
 {
     Player playerScript;
     GameObject playerUnit;
@@ -13,18 +12,15 @@ public class Items : NetworkBehaviour
     // Start is called before the first frame update
     void FindLocalPlayer()
     {
-        //if (NetworkServer.connections.Count > 0)
-        //{
-            playerUnit = ClientScene.localPlayers[0].gameObject;
-            playerScript = playerUnit.GetComponent<Player>();
-       // }
-    }
+        playerUnit = GameObject.Find("Player");
+        playerScript = playerUnit.GetComponent<Player>();
 
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if ((NetworkServer.connections.Count > 0) && (found = false))
+        if (found == false)
         {
             FindLocalPlayer();
             found = true;

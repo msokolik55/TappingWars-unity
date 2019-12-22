@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
 
-public class Player : NetworkBehaviour
+public class Player : MonoBehaviour
 {
     float health = 100f;
     string name;
@@ -66,22 +65,17 @@ public class Player : NetworkBehaviour
             // vypisat ze ma malo penazi
         }
     }
-
+    /*
     public void Start()
     {   
-        if (isLocalPlayer == false)
-        {
-            return;
-        }
         CmdSpawnMyUnit();
     }
 
-    [Command]
     void CmdSpawnMyUnit()
     {
         // Spawn Local Player always on the same position
         playerPrefab.transform.position = new Vector3(-20, -120, 0);
-        NetworkServer.Spawn(playerPrefab);
+        Instantiate(playerPrefab);
         playerPrefab.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-    }
+    }*/
 }
