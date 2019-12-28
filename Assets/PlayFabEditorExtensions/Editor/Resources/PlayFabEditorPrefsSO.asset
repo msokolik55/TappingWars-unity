@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DevAccountEmail: michal.sokolik@sokos.sk
   DevAccountToken: s5fx5ez7kqbnpbc84upcam9xuaso4jbqdo93uj18uy8pxcfo74qss71cjhjzhsdc5qsd39y8ip94g91nk5mp7btjpmi8sa9zsnhgdrisr47k9mw4uo9is3trgikz8oxn6izgj5jgc3umewgo5dqn43a3h8hx7y15qjw7umdc6d8yxc6a1yhw6aqbm6j5szozbs846jgh
-  SelectedStudio: 
+  SelectedStudio: Soulitek
   SdkPath: Assets/PlayFabSdk
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 0
+  curMainMenuIdx: 1
   curSubMenuIdx: 0
