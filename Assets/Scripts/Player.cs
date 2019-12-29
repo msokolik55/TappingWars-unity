@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    float health = 100f;
+    public float health;
     string name;
     int money = 0;
-    float damage = 1f;
+    public float damage;
 
     public Image healthBar;
     public Text numberOfCoins;
     public GameObject playerPrefab;
-
+    /*
     public Player(float _health, string _name, int _money, float _damage)
     {
         health = _health;
@@ -22,11 +22,19 @@ public class Player : MonoBehaviour
         damage = _damage;
 
         healthBar.fillAmount = health / 100f;    // priradit to funkcie takeDamage
+    }*/
+
+    private void Awake()
+    {
+        damage = 1f;
+        money = 0;
+        health = 100f;
     }
 
-    public void TakeDamage()
+    private void Start()
     {
         healthBar.fillAmount = health / 100f;
+        numberOfCoins.text = money.ToString();
     }
 
     public void EarnMoney()
@@ -58,11 +66,12 @@ public class Player : MonoBehaviour
         if(money >= 20)
         {
             money -= 20;
-            numberOfCoins.text = money.ToString(); 
+            numberOfCoins.text = money.ToString();
+            damage += 1f;
         }
         else
         {
-            // vypisat ze ma malo penazi
+            Debug.Log("Malo penazi");
         }
     }
     /*
