@@ -453,11 +453,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 415aa30f7732c124e91a859911606784, type: 3}
-    m_FontSize: 19
+    m_FontSize: 17
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 147
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -744,3 +744,4 @@ MonoBehaviour:
   AIPrefab: {fileID: 7063306216863253537}
   nameBar: {fileID: 1488442511443592118}
   lostImage: {fileID: 5012435237336887854}
+  player: {fileID: 0}

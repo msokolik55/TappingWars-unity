@@ -7,7 +7,7 @@ public class AI : MonoBehaviour
 {
     float health = 100f;
     int money = 0;
-    float damage = 1f;
+    float damage = 1.0f;
 
     public Image healthBar;
     public Text numberOfCoins;
@@ -17,6 +17,10 @@ public class AI : MonoBehaviour
 
     private GameObject playerUnit;
     private Player player;
+
+    private float waitTime = 0.5f;
+    private float timer = 0.0f;
+    private float visualTimer = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,11 +46,26 @@ public class AI : MonoBehaviour
         if (health <= 0)
         {
             lostImage.SetActive(true);
+            enabled = false;
         }
+    }
+
+    public void Click()
+    {
+        player.health -= damage;
+        player.GetDamage();
     }
 
     private void FixedUpdate()
     {
         CheckHealth();
+
+        timer += Time.fixedDeltaTime;
+
+        if (timer > waitTime)
+        {
+            timer = visualTimer;
+            Click();
+        }
     }
 }

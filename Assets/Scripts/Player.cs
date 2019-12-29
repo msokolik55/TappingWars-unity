@@ -26,9 +26,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        damage = 1f;
+        damage = 1.0f;
         money = 0;
-        health = 100f;
+        health = 100.0f;
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
     public void EarnMoney()
     {
-        money += 5;
+        money += 2;
         numberOfCoins.text = money.ToString();
     }
 
@@ -74,17 +74,9 @@ public class Player : MonoBehaviour
             Debug.Log("Malo penazi");
         }
     }
-    /*
-    public void Start()
-    {   
-        CmdSpawnMyUnit();
-    }
 
-    void CmdSpawnMyUnit()
+    public void GetDamage()
     {
-        // Spawn Local Player always on the same position
-        playerPrefab.transform.position = new Vector3(-20, -120, 0);
-        Instantiate(playerPrefab);
-        playerPrefab.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-    }*/
+        healthBar.fillAmount = health / 100f;
+    }
 }
