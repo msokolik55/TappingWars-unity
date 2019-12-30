@@ -1316,6 +1316,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568436621}
   m_CullTransparentMesh: 0
+--- !u!1 &589806534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7063306216863253537, guid: 7254098c10a02a741be99d9ef357fa29,
+    type: 3}
+  m_PrefabInstance: {fileID: 1890797756474718758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &625172612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1836,31 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 2553926291659489039, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: enemies.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553926291659489039, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 589806534}
+    - target: {fileID: 2553926291659489039, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1908070827}
+    - target: {fileID: 2553926291659489039, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 977572468}
+    - target: {fileID: 2553926291659489039, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: enemies.Array.data[3]
+      value: 
+      objectReference: {fileID: 962474297}
     - target: {fileID: 6001099040559679436, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1953,10 +1984,27 @@ PrefabInstance:
     - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_Name
-      value: AIUnit (2)
+      value: Bot3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa, type: 3}
+--- !u!1 &962474297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 937883404}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &977572468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 994625888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &994625888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2094,7 +2142,12 @@ PrefabInstance:
     - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_Name
-      value: AIUnit (1)
+      value: Bot2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa, type: 3}
@@ -3549,6 +3602,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 625172616}
     m_Modifications:
+    - target: {fileID: 526385658261061963, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: players.Array.data[0]
+      value: 
+      objectReference: {fileID: 589806534}
+    - target: {fileID: 526385658261061963, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: players.Array.data[1]
+      value: 
+      objectReference: {fileID: 1908070827}
+    - target: {fileID: 526385658261061963, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: players.Array.data[2]
+      value: 
+      objectReference: {fileID: 977572468}
+    - target: {fileID: 526385658261061963, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: players.Array.data[3]
+      value: 
+      objectReference: {fileID: 962474297}
     - target: {fileID: 1488442511443592118, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_Text
@@ -3677,10 +3750,16 @@ PrefabInstance:
     - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_Name
-      value: AIUnit
+      value: Bot1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa, type: 3}
+--- !u!1 &1908070827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1899449209}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1952236410
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,9 +18,7 @@ public class AI : MonoBehaviour
     private GameObject playerUnit;
     private Player player;
 
-    private float waitTime = 0.5f;
-    private float timer = 0.0f;
-    private float visualTimer = 0.0f;
+    private IEnumerator enumerator;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +29,9 @@ public class AI : MonoBehaviour
 
         playerUnit = GameObject.FindGameObjectWithTag("Player");
         player = playerUnit.GetComponent<Player>();
+
+        enumerator = WaitAndPrint(0.2f);
+        StartCoroutine(enumerator);
     }
 
     public void GetDamage()
@@ -54,18 +55,25 @@ public class AI : MonoBehaviour
     {
         player.health -= damage;
         player.GetDamage();
+        //Debug.Log(player.health);
     }
 
     private void FixedUpdate()
     {
         CheckHealth();
 
-        timer += Time.fixedDeltaTime;
+        
+    }
 
-        if (timer > waitTime)
+    // every 0.2 seconds perform the print()
+    private IEnumerator WaitAndPrint(float waitTime)
+    {
+        while (true)
         {
-            timer = visualTimer;
+            yield return new WaitForSeconds(waitTime);
             Click();
+            Debug.Log("WaitAndPrint " + Time.time);
         }
     }
 }
+

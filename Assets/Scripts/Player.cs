@@ -13,16 +13,8 @@ public class Player : MonoBehaviour
     public Image healthBar;
     public Text numberOfCoins;
     public GameObject playerPrefab;
-    /*
-    public Player(float _health, string _name, int _money, float _damage)
-    {
-        health = _health;
-        name = _name;
-        money = _money;
-        damage = _damage;
 
-        healthBar.fillAmount = health / 100f;    // priradit to funkcie takeDamage
-    }*/
+    public GameObject lostImage;
 
     private void Awake()
     {
@@ -78,5 +70,19 @@ public class Player : MonoBehaviour
     public void GetDamage()
     {
         healthBar.fillAmount = health / 100f;
+    }
+
+    private void CheckHealth()
+    {
+        if (health <= 0)
+        {
+            lostImage.SetActive(true);
+            enabled = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        CheckHealth();
     }
 }

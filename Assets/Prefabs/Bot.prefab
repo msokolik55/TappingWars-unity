@@ -696,9 +696,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6001099040559679436}
   - component: {fileID: 2553926291659489039}
+  - component: {fileID: 526385658261061963}
   m_Layer: 5
-  m_Name: AIUnit
-  m_TagString: AI
+  m_Name: Bot
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -744,4 +745,15 @@ MonoBehaviour:
   AIPrefab: {fileID: 7063306216863253537}
   nameBar: {fileID: 1488442511443592118}
   lostImage: {fileID: 5012435237336887854}
-  player: {fileID: 0}
+--- !u!114 &526385658261061963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063306216863253537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fbceba2a814f443a60cfb355230a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
