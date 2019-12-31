@@ -264,7 +264,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2553926291659489039}
-        m_MethodName: GetDamage
+        m_MethodName: GetDamageByClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -745,6 +745,7 @@ MonoBehaviour:
   AIPrefab: {fileID: 7063306216863253537}
   nameBar: {fileID: 1488442511443592118}
   lostImage: {fileID: 5012435237336887854}
+  enemy: {fileID: 0}
 --- !u!114 &526385658261061963
 MonoBehaviour:
   m_ObjectHideFlags: 0

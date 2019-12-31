@@ -15,10 +15,13 @@ public class AI : MonoBehaviour
     public Text nameBar;
     public GameObject lostImage;
 
-    private GameObject playerUnit;
+    public GameObject playerUnit;
     private Player player;
 
     private IEnumerator enumerator;
+
+    //public GameObject enemy;
+    public AI enemy_bot;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +37,16 @@ public class AI : MonoBehaviour
         StartCoroutine(enumerator);
     }
 
-    public void GetDamage()
+    public void GetDamageByClick()
     {
         health -= player.damage;
         Debug.Log(player.damage);
         Debug.Log(health);
+        healthBar.fillAmount = health / 100f;
+    }
+
+    public void GetDamage()
+    {
         healthBar.fillAmount = health / 100f;
     }
 
@@ -47,22 +55,31 @@ public class AI : MonoBehaviour
         if (health <= 0)
         {
             lostImage.SetActive(true);
+            StopAllCoroutines();
             enabled = false;
         }
     }
 
     public void Click()
     {
-        player.health -= damage;
-        player.GetDamage();
-        //Debug.Log(player.health);
+        if (playerUnit.GetComponent<AI>() == null) //enemy
+        {
+            player.health -= damage;
+            player.GetDamage();
+            Debug.Log("Ja " + gameObject.name + " Utocim na playera");
+        }
+        else
+        {
+            enemy_bot.health -= damage;
+            enemy_bot.GetDamage();
+
+            Debug.Log("Ja " + gameObject.name + " Utocim na " + enemy_bot.name);
+        }    
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        CheckHealth();
-
-        
+        CheckHealth();        
     }
 
     // every 0.2 seconds perform the print()
@@ -72,7 +89,6 @@ public class AI : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             Click();
-            Debug.Log("WaitAndPrint " + Time.time);
         }
     }
 }

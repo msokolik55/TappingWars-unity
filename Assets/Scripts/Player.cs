@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         {
             money -= 20;
             numberOfCoins.text = money.ToString();
-            damage += 1f;
+            damage += 0.2f;
         }
         else
         {
