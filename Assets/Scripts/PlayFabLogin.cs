@@ -4,6 +4,7 @@ using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.ProfilesModels;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PlayFabLogin : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayFabLogin : MonoBehaviour
     private string userPassword;
     private string username;
     public GameObject loginPanel;
+    public GameObject addLoginPanel;
+    public GameObject recoverButton;
 
     public void Start()
     {
@@ -28,9 +31,20 @@ public class PlayFabLogin : MonoBehaviour
         {
             userEmail = PlayerPrefs.GetString("EMAIL");
             userPassword = PlayerPrefs.GetString("PASSWORD");
-
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
             PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
+        }
+        else
+        {
+            #if UNITY_ANDROID
+            var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnMobileID(), CreateAccount = true };
+            PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginMobileSuccess, OnLoginMobileFailure);
+            #endif
+
+            #if UNITY_IOS
+            var requestIOS = new LoginWithIOSDeviceIDRequest { DeviceId = ReturnMobileID(), CreateAccount = true };
+            PlayFabClientAPI.LoginWithIOSDeviceID(requestIOS, OnLoginMobileSuccess, OnLoginMobileFailure);
+            #endif
         }
     }
     
@@ -41,6 +55,25 @@ public class PlayFabLogin : MonoBehaviour
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
         loginPanel.SetActive(false);
+        recoverButton.SetActive(false);
+
+        SceneManager.LoadScene("Menu");
+    }
+
+    private void OnLoginMobileSuccess(LoginResult result)
+    {
+        Debug.Log("Congratulations, you made your first successful API call!");
+        loginPanel.SetActive(false);
+    }
+
+    private void OnRegisterSuccess(RegisterPlayFabUserResult result)
+    {
+        Debug.Log("Congratulations, you made your first successful API call!");
+        PlayerPrefs.SetString("EMAIL", userEmail);
+        PlayerPrefs.SetString("PASSWORD", userPassword);
+        loginPanel.SetActive(false);
+
+        SceneManager.LoadScene("Menu");
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -48,23 +81,15 @@ public class PlayFabLogin : MonoBehaviour
         var registerRequest = new RegisterPlayFabUserRequest { Email = userEmail, Password = userPassword, Username = username };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
     }
-    
-    private void OnRegisterSuccess(RegisterPlayFabUserResult result)
+
+    private void OnLoginMobileFailure(PlayFabError error)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
-        PlayerPrefs.SetString("EMAIL", userEmail);
-        PlayerPrefs.SetString("PASSWORD", userPassword);
-        loginPanel.SetActive(false);
+        Debug.Log(error.GenerateErrorReport());
     }
 
     private void OnRegisterFailure(PlayFabError error)
     {
         Debug.LogError(error.GenerateErrorReport());
-    }
-
-    private void OnLoginMobileFailure(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
     }
 
     public void GetUserEmail(string emailIn)
@@ -87,5 +112,33 @@ public class PlayFabLogin : MonoBehaviour
         var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
         PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
     }
+
+    public static string ReturnMobileID()
+    {
+        string deviceID = SystemInfo.deviceUniqueIdentifier;
+        return deviceID;
+    }
+
+    public void OpenAddLogin()
+    {
+        addLoginPanel.SetActive(true);
+    }
+
+    public void OnClickAddLogin()
+    {
+        var addLoginRequest = new AddUsernamePasswordRequest { Email = userEmail, Password = userPassword, Username = username };
+        PlayFabClientAPI.AddUsernamePassword(addLoginRequest, OnAddLoginSuccess, OnRegisterFailure);
+    }
+
+    private void OnAddLoginSuccess(AddUsernamePasswordResult result)
+    {
+        Debug.Log("Congratulations, you made your first successful API call!");
+        PlayerPrefs.SetString("EMAIL", userEmail);
+        PlayerPrefs.SetString("PASSWORD", userPassword);
+        addLoginPanel.SetActive(false);
+
+        SceneManager.LoadScene("Menu");
+    }
+
     #endregion
 }
