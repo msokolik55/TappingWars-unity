@@ -66,14 +66,14 @@ public class AI : MonoBehaviour
         {
             player.health -= damage;
             player.GetDamage();
-            Debug.Log("Ja " + gameObject.name + " Utocim na playera");
+            //Debug.Log("Ja " + gameObject.name + " Utocim na playera");
         }
         else
         {
             enemy_bot.health -= damage;
             enemy_bot.GetDamage();
 
-            Debug.Log("Ja " + gameObject.name + " Utocim na " + enemy_bot.name);
+            //Debug.Log("Ja " + gameObject.name + " Utocim na " + enemy_bot.name);
         }    
     }
 
