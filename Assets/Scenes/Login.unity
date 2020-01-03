@@ -366,7 +366,7 @@ PrefabInstance:
     - target: {fileID: 919895545617536648, guid: 872f6955ec4af534aac2552cc81ac97c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919895545617536648, guid: 872f6955ec4af534aac2552cc81ac97c,
         type: 3}
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 804529116}
   - component: {fileID: 804529115}
   m_Layer: 0
-  m_Name: PlayFabLogin
+  m_Name: PlayFabController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -948,7 +948,11 @@ MonoBehaviour:
   loginPanel: {fileID: 576105470}
   addLoginPanel: {fileID: 1807162870}
   recoverButton: {fileID: 332699058}
-  mainMenuPanel: {fileID: 0}
+  playerLevel: 0
+  gameLevel: 0
+  playerHealth: 0
+  playerDamage: 0
+  playerHighScore: 0
 --- !u!4 &804529116
 Transform:
   m_ObjectHideFlags: 0
