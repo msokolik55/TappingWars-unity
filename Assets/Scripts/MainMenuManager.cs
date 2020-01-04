@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void UploadStats()
     {
-        PlayFabController.PFC.SetStats();
+        //PlayFabController.PFC.SetStats();
+        PlayFabController.PFC.StartCloudUpdatePlayerStats();
     }
 }
