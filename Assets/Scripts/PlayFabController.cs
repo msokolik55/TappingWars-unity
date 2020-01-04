@@ -93,10 +93,16 @@ public class PlayFabController : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
+
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnLoginMobileFailure);
         GetStats();
         loginPanel.SetActive(false);
 
         SceneManager.LoadScene("Menu");
+    }
+    void OnDisplayName(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log(result.DisplayName + " is your new display name");
     }
     private void OnLoginFailure(PlayFabError error)
     {
@@ -246,4 +252,42 @@ public class PlayFabController : MonoBehaviour
         Debug.Log(error.GenerateErrorReport());
     }
     #endregion PlayerStats
+
+    //public GameObject leaderboardPanel;
+    public GameObject listingPrefab;
+    public Transform listingContainer;
+
+    #region Leaderboard
+    public void GetLeaderboarder()
+    {
+        var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "PlayerHighScore", MaxResultsCount = 20 };
+        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeadboard, OnErrorLeaderboard);
+    }
+    void OnGetLeadboard(GetLeaderboardResult result)
+    {
+        //leaderboardPanel.SetActive(true);
+        //Debug.Log(result.Leaderboard[0].StatValue);
+        foreach (PlayerLeaderboardEntry player in result.Leaderboard)
+        {
+            GameObject tempListing = Instantiate(listingPrefab, listingContainer);
+            LeaderboardListing LL = tempListing.GetComponent<LeaderboardListing>();
+            LL.playerNameText.text = player.DisplayName;
+            LL.playerScoreText.text = player.StatValue.ToString();
+            Debug.Log(player.DisplayName + ": " + player.StatValue);
+        }
+    }
+    public void CloseLeaderboardPanel()
+    {
+        //leaderboardPanel.SetActive(false);
+        for (int i = listingContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(listingContainer.GetChild(i).gameObject);
+        }
+    }
+    void OnErrorLeaderboard(PlayFabError error)
+    {
+        Debug.LogError(error.GenerateErrorReport());
+    }
+
+    #endregion Leaderboard
 }
