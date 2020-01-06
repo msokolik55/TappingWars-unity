@@ -15,24 +15,25 @@ public class PlayFabController : MonoBehaviour
     private string userEmail;
     private string userPassword;
     private string username;
-    public GameObject loginPanel;
+    private string myID;
+    //public GameObject loginPanel;
     public GameObject addLoginPanel;
     public GameObject recoverButton;
 
     private void OnEnable()
     {
-        if (PlayFabController.PFC == null)
+        if (PFC == null)
         {
-            PlayFabController.PFC = this;
+            PFC = this;
         }
         else
         {
-            if (PlayFabController.PFC != this)
+            if (PFC != this)
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Start()
@@ -74,9 +75,12 @@ public class PlayFabController : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
-        loginPanel.SetActive(false);
+        //loginPanel.SetActive(false);
         recoverButton.SetActive(false);
         GetStats();
+
+        myID = result.PlayFabId;
+        GetPlayerData();
 
         SceneManager.LoadScene("Menu");
     }
@@ -84,7 +88,10 @@ public class PlayFabController : MonoBehaviour
     {
         Debug.Log("Congratulations, you made your first successful API call!");
         GetStats();
-        loginPanel.SetActive(false);
+        //loginPanel.SetActive(false);
+
+        myID = result.PlayFabId;
+        GetPlayerData();
 
         SceneManager.LoadScene("Menu");
     }
@@ -96,7 +103,10 @@ public class PlayFabController : MonoBehaviour
 
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnLoginMobileFailure);
         GetStats();
-        loginPanel.SetActive(false);
+        //loginPanel.SetActive(false);
+
+        myID = result.PlayFabId;
+        GetPlayerData();
 
         SceneManager.LoadScene("Menu");
     }
@@ -290,4 +300,49 @@ public class PlayFabController : MonoBehaviour
     }
 
     #endregion Leaderboard
+
+    #region PlayerData
+    //sends a request to get the player data from the playfab cloud
+    public void GetPlayerData()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            PlayFabId = myID,
+            Keys = null
+        }, UserDataSuccess, OnErrorLeaderboard);
+    }
+    
+    //the return callback function for success.
+    void UserDataSuccess(GetUserDataResult result)
+    {
+        if (result.Data == null || !result.Data.ContainsKey("Skins"))
+        {
+            Debug.Log("Skins not set");
+        }
+        else
+        {
+            //Get the resutls of the requests and sends it to be converted to the all skins array.
+            PersistentData.PD.SkinsStringToData(result.Data["Skins"].Value);
+        }
+    }
+    
+    //Sends a request to save the new player data to the playfab cloud
+    public void SetUserData(string SkinsData)
+    {
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>()
+            {
+                //key value pair, saving the allskins array as a string to the playfab cloud
+                {"Skins", SkinsData}
+            }
+        }, SetDataSuccess, OnErrorLeaderboard);
+    }
+    
+    //return callback function for a successful request
+    void SetDataSuccess(UpdateUserDataResult result)
+    {
+        Debug.Log(result.DataVersion);
+    }
+    #endregion PlayerData
 }
