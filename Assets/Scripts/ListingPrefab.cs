@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LeaderboardListing : MonoBehaviour
+public class ListingPrefab : MonoBehaviour
 {
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI playerScoreText;

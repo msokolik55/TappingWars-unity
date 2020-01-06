@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using PlayFab.Json;
 using PlayFab.PfEditor.Json;
+using System.Collections;
 
 public class PlayFabController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayFabController : MonoBehaviour
     private string userPassword;
     private string username;
     private string myID;
+    
     //public GameObject loginPanel;
     public GameObject addLoginPanel;
     public GameObject recoverButton;
@@ -59,7 +61,7 @@ public class PlayFabController : MonoBehaviour
         {
             #if UNITY_ANDROID
             var requestAndroid = new LoginWithAndroidDeviceIDRequest { AndroidDeviceId = ReturnMobileID(), CreateAccount = true };
-            PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginMobileSuccess, OnLoginMobileFailure);
+            PlayFabClientAPI.LoginWithAndroidDeviceID(requestAndroid, OnLoginMobileSuccess, DisplayPlayFabError);
             #endif
 
             #if UNITY_IOS
@@ -69,10 +71,20 @@ public class PlayFabController : MonoBehaviour
         }
     }
 
+    void DisplayPlayFabError(PlayFabError error)
+    {
+        Debug.Log(error.GenerateErrorReport());
+    }
+
+    void DisplayError(string error)
+    {
+        Debug.LogError(error);
+    }
+
     #region Login
     private void OnLoginSuccess(LoginResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
+        //Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
         //loginPanel.SetActive(false);
@@ -86,7 +98,7 @@ public class PlayFabController : MonoBehaviour
     }
     private void OnLoginMobileSuccess(LoginResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
+        //Debug.Log("Congratulations, you made your first successful API call!");
         GetStats();
         //loginPanel.SetActive(false);
 
@@ -97,11 +109,11 @@ public class PlayFabController : MonoBehaviour
     }
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
+        //Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
 
-        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, OnLoginMobileFailure);
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, DisplayPlayFabError);
         GetStats();
         //loginPanel.SetActive(false);
 
@@ -112,20 +124,12 @@ public class PlayFabController : MonoBehaviour
     }
     void OnDisplayName(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.Log(result.DisplayName + " is your new display name");
+        //Debug.Log(result.DisplayName + " is your new display name");
     }
     private void OnLoginFailure(PlayFabError error)
     {
         var registerRequest = new RegisterPlayFabUserRequest { Email = userEmail, Password = userPassword, Username = username };
-        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
-    }
-    private void OnLoginMobileFailure(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
-    }
-    private void OnRegisterFailure(PlayFabError error)
-    {
-        Debug.LogError(error.GenerateErrorReport());
+        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, DisplayPlayFabError);
     }
     public void GetUserEmail(string emailIn)
     {
@@ -142,7 +146,7 @@ public class PlayFabController : MonoBehaviour
     public void OnClickLogin()
     {
         var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
+        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, DisplayPlayFabError);
     }
     public static string ReturnMobileID()
     {
@@ -156,11 +160,11 @@ public class PlayFabController : MonoBehaviour
     public void OnClickAddLogin()
     {
         var addLoginRequest = new AddUsernamePasswordRequest { Email = userEmail, Password = userPassword, Username = username };
-        PlayFabClientAPI.AddUsernamePassword(addLoginRequest, OnAddLoginSuccess, OnRegisterFailure);
+        PlayFabClientAPI.AddUsernamePassword(addLoginRequest, OnAddLoginSuccess, DisplayPlayFabError);
     }
     private void OnAddLoginSuccess(AddUsernamePasswordResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
+        //Debug.Log("Congratulations, you made your first successful API call!");
         GetStats();
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
@@ -206,10 +210,10 @@ public class PlayFabController : MonoBehaviour
 
     void OnGetStats(GetPlayerStatisticsResult result)
     {
-        Debug.Log("Received the following Statistics:");
+        //Debug.Log("Received the following Statistics:");
         foreach (var eachStat in result.Statistics)
         {
-            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+            //Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
             switch (eachStat.StatisticName)
             {
                 case "PlayerLevel":
@@ -243,23 +247,18 @@ public class PlayFabController : MonoBehaviour
             FunctionName = "UpdatePlayerStats", // Arbitrary function name (must exist in your uploaded cloud.js file)
             FunctionParameter = new { Level = playerLevel, highScore = playerHighScore }, // The parameter provided to your function
             GeneratePlayStreamEvent = true, // Optional - Shows this event in PlayStream
-        }, OnCloudUpdateStats, OnErrorShared);
+        }, OnCloudUpdateStats, DisplayPlayFabError);
     }
     
     // OnCloudHelloWorld defined in the next code block
     private static void OnCloudUpdateStats(ExecuteCloudScriptResult result)
     {
         // Cloud Script returns arbitrary results, so you have to evaluate them one step and one parameter at a time
-        Debug.Log(JsonWrapper.SerializeObject(result.FunctionResult));
+        //Debug.Log(JsonWrapper.SerializeObject(result.FunctionResult));
         PlayFab.Json.JsonObject jsonResult = (PlayFab.Json.JsonObject)result.FunctionResult;
         object messageValue;
         jsonResult.TryGetValue("messageValue", out messageValue); // note how "messageValue" directly corresponds to the JSON values set in Cloud Script
-        Debug.Log((string)messageValue);
-    }
-
-    private static void OnErrorShared(PlayFabError error)
-    {
-        Debug.Log(error.GenerateErrorReport());
+        //Debug.Log((string)messageValue);
     }
     #endregion PlayerStats
 
@@ -271,7 +270,7 @@ public class PlayFabController : MonoBehaviour
     public void GetLeaderboarder()
     {
         var requestLeaderboard = new GetLeaderboardRequest { StartPosition = 0, StatisticName = "PlayerHighScore", MaxResultsCount = 20 };
-        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeadboard, OnErrorLeaderboard);
+        PlayFabClientAPI.GetLeaderboard(requestLeaderboard, OnGetLeadboard, DisplayPlayFabError);
     }
     void OnGetLeadboard(GetLeaderboardResult result)
     {
@@ -280,10 +279,10 @@ public class PlayFabController : MonoBehaviour
         foreach (PlayerLeaderboardEntry player in result.Leaderboard)
         {
             GameObject tempListing = Instantiate(listingPrefab, listingContainer);
-            LeaderboardListing LL = tempListing.GetComponent<LeaderboardListing>();
+            ListingPrefab LL = tempListing.GetComponent<ListingPrefab>();
             LL.playerNameText.text = player.DisplayName;
             LL.playerScoreText.text = player.StatValue.ToString();
-            Debug.Log(player.DisplayName + ": " + player.StatValue);
+            //Debug.Log(player.DisplayName + ": " + player.StatValue);
         }
     }
     public void CloseLeaderboardPanel()
@@ -294,11 +293,6 @@ public class PlayFabController : MonoBehaviour
             Destroy(listingContainer.GetChild(i).gameObject);
         }
     }
-    void OnErrorLeaderboard(PlayFabError error)
-    {
-        Debug.LogError(error.GenerateErrorReport());
-    }
-
     #endregion Leaderboard
 
     #region PlayerData
@@ -309,7 +303,7 @@ public class PlayFabController : MonoBehaviour
         {
             PlayFabId = myID,
             Keys = null
-        }, UserDataSuccess, OnErrorLeaderboard);
+        }, UserDataSuccess, DisplayPlayFabError);
     }
     
     //the return callback function for success.
@@ -317,7 +311,7 @@ public class PlayFabController : MonoBehaviour
     {
         if (result.Data == null || !result.Data.ContainsKey("Skins"))
         {
-            Debug.Log("Skins not set");
+            //Debug.Log("Skins not set");
         }
         else
         {
@@ -336,13 +330,112 @@ public class PlayFabController : MonoBehaviour
                 //key value pair, saving the allskins array as a string to the playfab cloud
                 {"Skins", SkinsData}
             }
-        }, SetDataSuccess, OnErrorLeaderboard);
+        }, SetDataSuccess, DisplayPlayFabError);
     }
     
     //return callback function for a successful request
     void SetDataSuccess(UpdateUserDataResult result)
     {
-        Debug.Log(result.DataVersion);
+        //Debug.Log(result.DataVersion);
     }
     #endregion PlayerData
+
+    #region Friends
+    [SerializeField]
+    public Transform friendListing;
+    List<FriendInfo> myFriends;
+    void DisplayFriends(List<FriendInfo> friendsCache)
+    {
+        foreach (FriendInfo f in friendsCache)
+        {
+            bool isFound = false;
+            if (myFriends != null)
+            {
+                foreach (FriendInfo g in myFriends)
+                {
+                    if (f.FriendPlayFabId == g.FriendPlayFabId)
+                        isFound = true;
+                }
+            }
+
+            if (isFound == false)
+            {
+                GameObject listing = Instantiate(listingPrefab, friendListing);
+                ListingPrefab tempListing = listing.GetComponent<ListingPrefab>();
+                //Debug.Log(tempListing.playerNameText);
+                //Debug.Log(f.TitleDisplayName);
+                tempListing.playerNameText.text = f.TitleDisplayName;
+            }
+        }
+        myFriends = friendsCache;
+    }
+
+    IEnumerator WaitForFriend()
+    {
+        yield return new WaitForSeconds(2);
+        GetFriends();
+    }
+
+    public void RunWaitFunction()
+    {
+        StartCoroutine(WaitForFriend());
+    }
+
+    List<FriendInfo> _friends = null;
+    public void GetFriends()
+    {
+        PlayFabClientAPI.GetFriendsList(new GetFriendsListRequest
+        {
+            IncludeSteamFriends = false,
+            IncludeFacebookFriends = false
+        }, result => {
+            _friends = result.Friends;
+            DisplayFriends(_friends); // triggers your UI
+        }, DisplayPlayFabError);
+    }
+
+    public enum FriendIdType { PlayFabId, Username, Email, DisplayName };
+    public void AddFriend(FriendIdType idType, string friendId)
+    {
+        var request = new AddFriendRequest();
+        switch (idType)
+        {
+            case FriendIdType.PlayFabId:
+                request.FriendPlayFabId = friendId;
+                break;
+            case FriendIdType.Username:
+                request.FriendUsername = friendId;
+                break;
+            case FriendIdType.Email:
+                request.FriendEmail = friendId;
+                break;
+            case FriendIdType.DisplayName:
+                request.FriendTitleDisplayName = friendId;
+                break;
+        }
+        // Execute request and update friends when we are done
+        PlayFabClientAPI.AddFriend(request, result => {
+            Debug.Log("Friend added successfully!");
+        }, DisplayPlayFabError);
+    }
+
+    public string friendSearch;
+    [SerializeField]
+    //GameObject friendPanel;
+
+    public void InputFriendID(string idIn)
+    {
+        friendSearch = idIn;
+    }
+
+    public void SubmitFriendRequest()
+    {
+        AddFriend(FriendIdType.PlayFabId, friendSearch);
+    }
+
+    //public void OpenCloseFriends()
+    //{
+    //    friendPanel.SetActive(!friendPanel.activeInHierarchy);
+    //}
+    #endregion Friends
 }

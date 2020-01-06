@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static PlayFabController;
 
 public class MenuController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MenuController : MonoBehaviour
     public GameObject[] buttonLocks; //All the lock buttons game objects
     public Button[] unlockedButtons; //All the "Skin" buttons
 
+    public Transform friendListing;
+
     private void OnEnable()
     {
         MC = this;
@@ -19,8 +22,10 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        PlayFabController.PFC.listingPrefab = listingPrefab;
-        PlayFabController.PFC.listingContainer = listingContainer;
+        PFC.listingPrefab = listingPrefab;
+        PFC.listingContainer = listingContainer;
+
+        PFC.friendListing = friendListing;
 
         SetUpStore();
     }
@@ -72,5 +77,28 @@ public class MenuController : MonoBehaviour
     {
         PlayFabController.PFC.CloseLeaderboardPanel();
     }
+    #endregion
+
+    #region Friends
+    public void InputFriendID(string idIn)
+    {
+        PFC.InputFriendID(idIn);
+    }
+
+    public void SubmitFriendRequest()
+    {
+        PFC.SubmitFriendRequest();
+    }
+
+    public void GetFriends()
+    {
+        PFC.GetFriends();
+    }
+
+    public void RunWaitFunction()
+    {
+        PFC.RunWaitFunction();
+    }
+
     #endregion
 }
