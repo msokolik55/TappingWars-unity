@@ -14,7 +14,6 @@ public class Items : MonoBehaviour
     {
         playerUnit = GameObject.Find("Player");
         playerScript = playerUnit.GetComponent<Player>();
-
     }
 
     // Update is called once per frame

@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class Easy : MonoBehaviour
 {
-    private GameObject[] units;
+    public GameObject[] units;
     private GameObject myUnit;
     private List<GameObject> players = new List<GameObject>();
 
     private GameObject enemy;
 
+    public Player player = null;
+    public AI enemyBot = null;
+
     AI AIscript;
-    private IEnumerator enumurator;
+    private int changeEnemy = 0;
+    private bool attack = false;
+    private bool earn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,60 +28,111 @@ public class Easy : MonoBehaviour
         {
             if (unit == this.gameObject)
             {
-                myUnit = unit;
+                continue;
             }
             else
             {
                 players.Add(unit);
             }
         }
-
+        StartCoroutine(enumerator(0.2f));
+        ChooseTarget();
         AIscript = gameObject.GetComponent<AI>();
-        StartCoroutine(enumerator(2f));
     }
-    /*
-    private bool CanDefeated()
-    {
-        return true;
-    }*/
 
     private void CheckIfSomeoneLost()
     {
         GameObject lostImage;
 
-        foreach(GameObject player in players)
+        foreach (GameObject _player in players)
         {
-            lostImage = player.transform.FindChild("Lost").gameObject;
+            lostImage = _player.transform.FindChild("Lost").gameObject;
             if (lostImage.activeSelf)
             {
-                players.Remove(player);
-                Debug.Log(player.name);
-                ChooseTarget();
+                players.Remove(_player);
+                Debug.Log(_player.name);
             }
         }
     }
     
+    private void CheckHealth()
+    {
+       if((AIscript.health <= 20f) && earn == false)
+        {
+            earn = true;
+            attack = false;
+            player = null;
+            enemyBot = null;
+        }
+       else if (AIscript.health > 20f && earn == true)
+        {
+            attack = !attack;
+            earn = !earn;
+            ChooseTarget();
+        }
+    }
+
+    private void Attack()
+    {
+        if (player == null)
+        {
+            enemyBot.health -= AIscript.damage;
+            enemyBot.GetDamage();
+        }
+        else if (enemyBot == null)
+        {
+            player.health -= AIscript.damage;
+            player.GetDamage();
+        }
+    }
+
+    private void EarnMoney()
+    {
+        AIscript.money += Shop.earnAmount;
+    }
+
     private IEnumerator enumerator(float waitTime)
     {
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            ChooseTarget();
+            if (attack)
+            {
+                Attack();
+                changeEnemy += 1;
+            }
+            else
+            {
+                EarnMoney();
+            }
+
+            if (changeEnemy == 5)
+            {
+                ChooseTarget();
+            }
         }
     }
 
     private void ChooseTarget()
     {
+        changeEnemy = 0;
+
         enemy = players[Random.Range(0, players.Count)];
-        AIscript.playerUnit = enemy;
-        if (enemy.GetComponent<AI>() != null)
+        if (enemy.GetComponent<AI>() == null) //enemy
         {
-            AIscript.enemy_bot = enemy.GetComponent<AI>();
+            player = enemy.GetComponent<Player>();
+            enemyBot = null;
+        }
+        else
+        {
+            enemyBot = enemy.GetComponent<AI>();
+            player = null;
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CheckIfSomeoneLost();
+        CheckHealth();
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class AI : MonoBehaviour
 {
-    float health = 100f;
-    int money = 0;
-    float damage = 1.0f;
+    public float health = 100f;
+    public int money = 0;
+    public float damage = 0.5f;
 
     public Image healthBar;
     public Text numberOfCoins;
@@ -18,11 +18,6 @@ public class AI : MonoBehaviour
     public GameObject playerUnit;
     private Player player;
 
-    private IEnumerator enumerator;
-
-    //public GameObject enemy;
-    public AI enemy_bot;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +27,6 @@ public class AI : MonoBehaviour
 
         playerUnit = GameObject.FindGameObjectWithTag("Player");
         player = playerUnit.GetComponent<Player>();
-
-        enumerator = WaitAndPrint(0.2f);
-        StartCoroutine(enumerator);
     }
 
     public void GetDamageByClick()
@@ -50,46 +42,41 @@ public class AI : MonoBehaviour
         healthBar.fillAmount = health / 100f;
     }
 
-    private void CheckHealth()
+    private void HealMe()
     {
-        if (health <= 0)
-        {
-            lostImage.SetActive(true);
-            StopAllCoroutines();
-            enabled = false;
-        }
+        money -= Shop.repairCost;
+        health += Shop.repairHealth;
+        GetDamage();
     }
 
-    public void Click()
+    private void IncreaseDamage()
     {
-        if (playerUnit.GetComponent<AI>() == null) //enemy
-        {
-            player.health -= damage;
-            player.GetDamage();
-            //Debug.Log("Ja " + gameObject.name + " Utocim na playera");
-        }
-        else
-        {
-            enemy_bot.health -= damage;
-            enemy_bot.GetDamage();
+        money -= Shop.damageCost;
+        damage += Shop.damageIncrease;
+    }
 
-            //Debug.Log("Ja " + gameObject.name + " Utocim na " + enemy_bot.name);
-        }    
+    private void CheckHealth()
+    {
+       if (health <= 0)
+        {
+            lostImage.SetActive(true);
+            enabled = false;
+        }
+
     }
 
     private void Update()
     {
-        CheckHealth();        
-    }
-
-    // every 0.2 seconds perform the print()
-    private IEnumerator WaitAndPrint(float waitTime)
-    {
-        while (true)
+        CheckHealth(); 
+        if (health <= 20f && money >= 10.0f)
         {
-            yield return new WaitForSeconds(waitTime);
-            Click();
+            HealMe();
+        }
+        if (money >= 20)
+        {
+            IncreaseDamage();
         }
     }
+
 }
 

@@ -696,7 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6001099040559679436}
   - component: {fileID: 2553926291659489039}
-  - component: {fileID: 526385658261061963}
+  - component: {fileID: 9199841212071310095}
   m_Layer: 5
   m_Name: Bot
   m_TagString: Player
@@ -740,13 +740,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1242984b58e69fa4bb5cfdec37696a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  money: 0
+  damage: 0.5
   healthBar: {fileID: 4153365383463439073}
   numberOfCoins: {fileID: 230886721354549833}
   AIPrefab: {fileID: 7063306216863253537}
   nameBar: {fileID: 1488442511443592118}
   lostImage: {fileID: 5012435237336887854}
-  enemy: {fileID: 0}
---- !u!114 &526385658261061963
+  playerUnit: {fileID: 0}
+--- !u!114 &9199841212071310095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -755,6 +758,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7063306216863253537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88fbceba2a814f443a60cfb355230a60, type: 3}
+  m_Script: {fileID: 11500000, guid: 73b167e3a873a134295b47b28971a4c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  units: []
+  player: {fileID: 0}
+  enemyBot: {fileID: 0}

@@ -21,11 +21,6 @@ public class Timer : MonoBehaviour
 
     }
 
-    private void DisplayTime()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

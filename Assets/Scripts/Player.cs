@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        damage = 1.0f;
+        damage = 0.5f;
         money = 0;
         health = 100.0f;
     }
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     public void EarnMoney()
     {
-        money += 2;
+        money += Shop.earnAmount;
         numberOfCoins.text = money.ToString();
     }
 
@@ -45,10 +45,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                health += 10f;
+                health += Shop.repairHealth;
             }
             healthBar.fillAmount = health / 100f;
-            money -= 10;
+            money -= Shop.repairCost;
             numberOfCoins.text = money.ToString();
         }
     }
@@ -57,9 +57,9 @@ public class Player : MonoBehaviour
     {
         if(money >= 20)
         {
-            money -= 20;
+            money -= Shop.damageCost;
             numberOfCoins.text = money.ToString();
-            damage += 0.2f;
+            damage += Shop.damageIncrease;
         }
         else
         {
