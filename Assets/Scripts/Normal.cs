@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Easy : MonoBehaviour
+public class Normal : MonoBehaviour
 {
     public GameObject[] units;
     private GameObject myUnit;
@@ -11,8 +11,8 @@ public class Easy : MonoBehaviour
 
     private GameObject enemy;
 
-    public Player player = null;
-    public AI enemyBot = null;
+    public Player playerObj = null;
+    public AI botEnemy = null;
 
     private AI AIscript;
     private int changeEnemy = 0;
@@ -36,7 +36,7 @@ public class Easy : MonoBehaviour
             }
         }
         StartCoroutine(enumerator(0.2f));
-        ChooseTarget();
+        ChooseTargetRandomly();
         AIscript = gameObject.GetComponent<AI>();
     }
 
@@ -54,17 +54,17 @@ public class Easy : MonoBehaviour
             }
         }
     }
-    
+
     private void CheckHealth()
     {
-       if((AIscript.health <= 20f) && earn == false)
+        if ((AIscript.health <= 20f) && earn == false)
         {
-            earn = true;
-            attack = false;
-            player = null;
-            enemyBot = null;
+            earn = !earn;
+            attack = !attack;
+            playerObj = null;
+            botEnemy = null;
         }
-       else if (AIscript.health > 20f && earn == true)
+        else if ((AIscript.health > 20f) && earn == true)
         {
             attack = !attack;
             earn = !earn;
@@ -74,15 +74,15 @@ public class Easy : MonoBehaviour
 
     private void Attack()
     {
-        if (player == null)
+        if (playerObj == null)
         {
-            enemyBot.health -= AIscript.damage;
-            enemyBot.GetDamage();
+            botEnemy.health -= AIscript.damage;
+            botEnemy.GetDamage();
         }
-        else if (enemyBot == null)
+        else if (botEnemy == null)
         {
-            player.health -= AIscript.damage;
-            player.GetDamage();
+            playerObj.health -= AIscript.damage;
+            playerObj.GetDamage();
         }
     }
 
@@ -108,25 +108,74 @@ public class Easy : MonoBehaviour
 
             if (changeEnemy == 5)
             {
-                ChooseTarget();
+                if (AIscript.health < 30f){
+                    ChooseTarget();
+                }
+                else
+                {
+                    ChooseTargetRandomly();
+                }
             }
         }
     }
 
-    private void ChooseTarget()
+    private void ChooseTargetRandomly()
     {
         changeEnemy = 0;
 
         enemy = players[Random.Range(0, players.Count)];
         if (enemy.GetComponent<AI>() == null) //enemy
         {
-            player = enemy.GetComponent<Player>();
-            enemyBot = null;
+            playerObj = enemy.GetComponent<Player>();
+            botEnemy = null;
         }
         else
         {
-            enemyBot = enemy.GetComponent<AI>();
-            player = null;
+            botEnemy = enemy.GetComponent<AI>();
+            playerObj = null;
+        }
+    }
+
+    private void ChooseTarget()
+    {
+        changeEnemy = 0;
+        float lowestHealth = 0.0f;
+
+        if (players[0].GetComponent<AI>() == null)
+        {
+            playerObj = players[0].GetComponent<Player>();
+            lowestHealth = playerObj.health;
+            botEnemy = null;
+        }
+        else
+        {
+            botEnemy = players[0].GetComponent<AI>();
+            lowestHealth = botEnemy.health;
+            playerObj = null;
+        }
+
+        enemy = players[0];
+
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<AI>() == null)
+            {
+                if (player.GetComponent<Player>().health < lowestHealth)
+                {
+                    playerObj = player.GetComponent<Player>();
+                    lowestHealth = playerObj.health;
+                    botEnemy = null;
+                }
+            }
+            else
+            {
+                if (player.GetComponent<AI>().health < lowestHealth)
+                {
+                    botEnemy = player.GetComponent<AI>();
+                    lowestHealth = botEnemy.health;
+                    playerObj = null;
+                }
+            }
         }
     }
 

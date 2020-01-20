@@ -696,7 +696,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6001099040559679436}
   - component: {fileID: 2553926291659489039}
-  - component: {fileID: 9199841212071310095}
+  - component: {fileID: 8929611316833559393}
+  - component: {fileID: 7179309755110332898}
   m_Layer: 5
   m_Name: Bot
   m_TagString: Player
@@ -749,7 +750,22 @@ MonoBehaviour:
   nameBar: {fileID: 1488442511443592118}
   lostImage: {fileID: 5012435237336887854}
   playerUnit: {fileID: 0}
---- !u!114 &9199841212071310095
+--- !u!114 &8929611316833559393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063306216863253537}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fbceba2a814f443a60cfb355230a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units: []
+  player: {fileID: 0}
+  enemyBot: {fileID: 0}
+--- !u!114 &7179309755110332898
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -758,7 +774,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7063306216863253537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b167e3a873a134295b47b28971a4c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 79f4662dca8e9644c98a99e17ba797ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   units: []

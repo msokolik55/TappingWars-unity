@@ -3871,10 +3871,20 @@ PrefabInstance:
       propertyPath: players.Array.data[3]
       value: 
       objectReference: {fileID: 962474297}
+    - target: {fileID: 1109139707274784284, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1488442511443592118, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
       propertyPath: m_Text
       value: AI_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695672536453110888, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6001099040559679436, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
         type: 3}
@@ -4000,6 +4010,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bot1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063306216863253537, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7179309755110332898, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929611316833559393, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e0a4d8a69578f74a9a304b8f4bf49aa, type: 3}

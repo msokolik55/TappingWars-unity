@@ -8,7 +8,7 @@ public class SinglePlayerManager : MonoBehaviour
     //public List<GameObject> players = new List<GameObject>();
     public List<Text> names = new List<Text>();
 
-    private int difficulty = 1;
+    private int difficulty = 2;
     private int nameAI = 1;
     private string name;
 
