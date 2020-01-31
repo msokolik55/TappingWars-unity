@@ -1,18 +1,14 @@
 {
-    "name": "PlayFabTestingEditor",
+    "name": "PlayFabTesting",
     "references": [
-        "PlayFab",
-        "PlayFabTesting"
+        "PlayFab"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [
-        "PlayFab",
-        "PlayFabTesting"
+        "PlayFab"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

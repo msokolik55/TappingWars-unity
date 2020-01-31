@@ -6,8 +6,6 @@ namespace PlayFab.UUnit
 {
     public static class StaticTestRunner
     {
-        private static UUnitIncrementalTestRunner[] _testers = null;
-
         private static void ClearDebugLog()
         {
             var assembly = Assembly.GetAssembly(typeof(SceneView));
@@ -27,16 +25,17 @@ namespace PlayFab.UUnit
             method.Invoke(new object(), null);
         }
 
+        // From an empty scene, this will create the test scene
         [MenuItem("PlayFab/Testing/Play and Run Tests")]
         public static void TestImmediately()
         {
             ClearDebugLog();
 
-            _testers = UnityEngine.Object.FindObjectsOfType<UUnitIncrementalTestRunner>();
-            if (_testers.Length == 0)
+            var testComponents = UnityEngine.Object.FindObjectsOfType<UUnitIncrementalTestRunner>();
+            if (testComponents.Length == 0)
             {
-                _testers = new[] { new GameObject("UUnitRunner", typeof(UUnitIncrementalTestRunner)).GetComponent<UUnitIncrementalTestRunner>() };
-                _testers[0].autoQuit = true;
+                testComponents = new[] { new GameObject("UUnitRunner", typeof(UUnitIncrementalTestRunner)).GetComponent<UUnitIncrementalTestRunner>() };
+                testComponents[0].autoQuit = true;
             }
 
             EditorApplication.isPlaying = true;

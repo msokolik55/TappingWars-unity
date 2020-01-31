@@ -64,6 +64,8 @@ namespace PlayFab.Internal
 
     public static class PlayFabPackager
     {
+        private static string PACKAGE_FILENAME = "UnitySDK.unitypackage";
+
         private static readonly string[] SdkAssets = {
             "Assets/PlayFabSDK"
         };
@@ -196,12 +198,14 @@ namespace PlayFab.Internal
             Setup();
             var packageFolder = PathCombine(workspacePath, "sdks", repoName, "Packages");
             MkDir(packageFolder);
-            var packageFullPath = Path.Combine(packageFolder, "UnitySDK.unitypackage");
+            var packageFullPath = Path.Combine(packageFolder, PACKAGE_FILENAME);
             if (File.Exists(packageFullPath))
                 File.Delete(packageFullPath);
             if (File.Exists(packageFullPath))
                 throw new PlayFabException(PlayFabExceptionCode.BuildError, "The older package version could not be deleted.");
+
             AssetDatabase.ExportPackage(SdkAssets, packageFullPath, ExportPackageOptions.Recurse);
+
             if (!File.Exists(packageFullPath))
                 throw new PlayFabException(PlayFabExceptionCode.BuildError, "The package was not replaced as expected.");
             Debug.Log("Package built: " + packageFullPath);
