@@ -6,7 +6,7 @@ using PlayFab.ProfilesModels;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using PlayFab.Json;
-using PlayFab.PfEditor.Json;
+//using PlayFab.PfEditor.Json;
 using System.Collections;
 
 public class PlayFabController : MonoBehaviour
