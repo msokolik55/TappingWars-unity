@@ -374,7 +374,7 @@ public static class PhotonNetwork
     /// You could (e.g.) get the full list only once, then request a few updates only for friends who are online.
     /// After a while (e.g. 1 minute), you can get the full list again (to update online states).
     /// </remarks>
-    public static List<FriendInfo> Friends { get; internal set; }
+    public static List<PhotonFriendInfo> Friends { get; internal set; }
 
     /// <summary>
     /// Age of friend list info (in milliseconds). It's 0 until a friend list is fetched.

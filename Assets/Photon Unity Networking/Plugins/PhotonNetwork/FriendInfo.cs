@@ -12,7 +12,7 @@
 /// <summary>
 /// Used to store info about a friend's online state and in which room he/she is.
 /// </summary>
-public class FriendInfo
+public class PhotonFriendInfo
 {
     [System.Obsolete("Use UserId.")]
     public string Name { get { return this.UserId; } }

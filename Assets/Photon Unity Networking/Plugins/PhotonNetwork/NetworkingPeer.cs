@@ -2070,10 +2070,10 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                 if (onlineList != null && roomList != null && this.friendListRequested != null && onlineList.Length == this.friendListRequested.Length)
                 {
-                    List<FriendInfo> friendList = new List<FriendInfo>(this.friendListRequested.Length);
+                    List<PhotonFriendInfo> friendList = new List<PhotonFriendInfo>(this.friendListRequested.Length);
                     for (int index = 0; index < this.friendListRequested.Length; index++)
                     {
-                        FriendInfo friend = new FriendInfo();
+                        PhotonFriendInfo friend = new PhotonFriendInfo();
                         friend.UserId = this.friendListRequested[index];
                         friend.Room = roomList[index];
                         friend.IsOnline = onlineList[index];

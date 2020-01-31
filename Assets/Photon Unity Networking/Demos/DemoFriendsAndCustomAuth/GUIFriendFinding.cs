@@ -84,7 +84,7 @@ public class GUIFriendFinding : MonoBehaviour
 
         if (PhotonNetwork.Friends != null)
         {
-            foreach (FriendInfo info in PhotonNetwork.Friends)
+            foreach (PhotonFriendInfo info in PhotonNetwork.Friends)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(info.ToString());
