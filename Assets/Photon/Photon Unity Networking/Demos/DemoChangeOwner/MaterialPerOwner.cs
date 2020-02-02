@@ -28,6 +28,7 @@ public class MaterialPerOwner : Photon.MonoBehaviour
             }
             catch (Exception e)
             {
+                Debug.Log(e.ToString());
                 //nothing
             }
            

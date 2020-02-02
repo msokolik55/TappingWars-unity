@@ -482,6 +482,51 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 332699056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &337931205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337931207}
+  - component: {fileID: 337931206}
+  m_Layer: 0
+  m_Name: MultiplayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &337931206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337931205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f807ecc91f1fd429dbf86fb4e171e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameVersion: pre-alphav1
+  connectionState: {fileID: 0}
+--- !u!4 &337931207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337931205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &533951412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -754,6 +799,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01dec4813edd9e04d8949c0012b8554c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listingPrefab: {fileID: 0}
+  listingContainer: {fileID: 0}
+  buttonLocks: []
+  unlockedButtons: []
+  friendListing: {fileID: 0}
 --- !u!114 &576105473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,7 +959,7 @@ RectTransform:
   - {fileID: 1807162875}
   - {fileID: 332699057}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -945,7 +995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488ae789b7eac754bad2fffcc67db8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginPanel: {fileID: 576105470}
   addLoginPanel: {fileID: 1807162870}
   recoverButton: {fileID: 332699058}
   playerLevel: 0
@@ -953,6 +1002,10 @@ MonoBehaviour:
   playerHealth: 0
   playerDamage: 0
   playerHighScore: 0
+  listingPrefab: {fileID: 0}
+  listingContainer: {fileID: 0}
+  friendListing: {fileID: 0}
+  friendSearch: 
 --- !u!4 &804529116
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,7 +1084,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &925485226
 PrefabInstance:
@@ -2730,6 +2783,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01dec4813edd9e04d8949c0012b8554c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listingPrefab: {fileID: 0}
+  listingContainer: {fileID: 0}
+  buttonLocks: []
+  unlockedButtons: []
+  friendListing: {fileID: 0}
 --- !u!114 &1807162873
 MonoBehaviour:
   m_ObjectHideFlags: 0

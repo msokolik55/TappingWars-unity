@@ -1,13 +1,15 @@
-﻿using PlayFab;
-using PlayFab.ClientModels;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+using PlayFab;
+using PlayFab.ClientModels;
 using PlayFab.DataModels;
 using PlayFab.ProfilesModels;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using PlayFab.Json;
-//using PlayFab.PfEditor.Json;
-using System.Collections;
+
+using static MPManager;
 
 public class PlayFabController : MonoBehaviour
 {
@@ -84,43 +86,43 @@ public class PlayFabController : MonoBehaviour
     #region Login
     private void OnLoginSuccess(LoginResult result)
     {
-        //Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
-        //loginPanel.SetActive(false);
         recoverButton.SetActive(false);
         GetStats();
 
         myID = result.PlayFabId;
         GetPlayerData();
 
-        SceneManager.LoadScene("Menu");
+        MPM.ConnectToMaster();
+
+        //SceneManager.LoadScene("Menu");
     }
     private void OnLoginMobileSuccess(LoginResult result)
     {
-        //Debug.Log("Congratulations, you made your first successful API call!");
         GetStats();
-        //loginPanel.SetActive(false);
 
         myID = result.PlayFabId;
         GetPlayerData();
 
-        SceneManager.LoadScene("Menu");
+        MPM.ConnectToMaster();
+
+        //SceneManager.LoadScene("Menu");
     }
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
-        //Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
 
         PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = username }, OnDisplayName, DisplayPlayFabError);
         GetStats();
-        //loginPanel.SetActive(false);
 
         myID = result.PlayFabId;
         GetPlayerData();
 
-        SceneManager.LoadScene("Menu");
+        MPM.ConnectToMaster();
+
+        //SceneManager.LoadScene("Menu");
     }
     void OnDisplayName(UpdateUserTitleDisplayNameResult result)
     {

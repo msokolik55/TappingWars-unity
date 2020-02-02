@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static PlayFabController;
+using static MPManager;
+using TMPro;
 
 public class MenuController : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class MenuController : MonoBehaviour
     public Button[] unlockedButtons; //All the "Skin" buttons
 
     public Transform friendListing;
+    public TextMeshProUGUI connectionState;
 
     private void OnEnable()
     {
@@ -27,7 +30,14 @@ public class MenuController : MonoBehaviour
 
         PFC.friendListing = friendListing;
 
+        //MPM.connectionState = connectionState;
+
         SetUpStore();
+    }
+
+    private void FixedUpdate()
+    {
+        MC.connectionState.text = PhotonNetwork.connectionStateDetailed.ToString();
     }
 
     #region PlayerData
@@ -101,4 +111,9 @@ public class MenuController : MonoBehaviour
     }
 
     #endregion
+
+    public void CreateOrJoin()
+    {
+        MPM.CreateOrJoin();
+    }
 }
