@@ -33,6 +33,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<EmptyResponse> OnMultiplayerDeleteBuildResultEvent;
         public event PlayFabRequestEvent<DeleteBuildAliasRequest> OnMultiplayerDeleteBuildAliasRequestEvent;
         public event PlayFabResultEvent<EmptyResponse> OnMultiplayerDeleteBuildAliasResultEvent;
+        public event PlayFabRequestEvent<DeleteBuildRegionRequest> OnMultiplayerDeleteBuildRegionRequestEvent;
+        public event PlayFabResultEvent<EmptyResponse> OnMultiplayerDeleteBuildRegionResultEvent;
         public event PlayFabRequestEvent<DeleteCertificateRequest> OnMultiplayerDeleteCertificateRequestEvent;
         public event PlayFabResultEvent<EmptyResponse> OnMultiplayerDeleteCertificateResultEvent;
         public event PlayFabRequestEvent<DeleteRemoteUserRequest> OnMultiplayerDeleteRemoteUserRequestEvent;
@@ -55,6 +57,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<GetMultiplayerServerDetailsResponse> OnMultiplayerGetMultiplayerServerDetailsResultEvent;
         public event PlayFabRequestEvent<GetMultiplayerServerLogsRequest> OnMultiplayerGetMultiplayerServerLogsRequestEvent;
         public event PlayFabResultEvent<GetMultiplayerServerLogsResponse> OnMultiplayerGetMultiplayerServerLogsResultEvent;
+        public event PlayFabRequestEvent<GetMultiplayerSessionLogsBySessionIdRequest> OnMultiplayerGetMultiplayerSessionLogsBySessionIdRequestEvent;
+        public event PlayFabResultEvent<GetMultiplayerServerLogsResponse> OnMultiplayerGetMultiplayerSessionLogsBySessionIdResultEvent;
         public event PlayFabRequestEvent<GetQueueStatisticsRequest> OnMultiplayerGetQueueStatisticsRequestEvent;
         public event PlayFabResultEvent<GetQueueStatisticsResult> OnMultiplayerGetQueueStatisticsResultEvent;
         public event PlayFabRequestEvent<GetRemoteLoginEndpointRequest> OnMultiplayerGetRemoteLoginEndpointRequestEvent;
@@ -105,6 +109,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<EmptyResponse> OnMultiplayerUntagContainerImageResultEvent;
         public event PlayFabRequestEvent<UpdateBuildAliasRequest> OnMultiplayerUpdateBuildAliasRequestEvent;
         public event PlayFabResultEvent<BuildAliasDetailsResponse> OnMultiplayerUpdateBuildAliasResultEvent;
+        public event PlayFabRequestEvent<UpdateBuildRegionRequest> OnMultiplayerUpdateBuildRegionRequestEvent;
+        public event PlayFabResultEvent<EmptyResponse> OnMultiplayerUpdateBuildRegionResultEvent;
         public event PlayFabRequestEvent<UpdateBuildRegionsRequest> OnMultiplayerUpdateBuildRegionsRequestEvent;
         public event PlayFabResultEvent<EmptyResponse> OnMultiplayerUpdateBuildRegionsResultEvent;
         public event PlayFabRequestEvent<UploadCertificateRequest> OnMultiplayerUploadCertificateRequestEvent;

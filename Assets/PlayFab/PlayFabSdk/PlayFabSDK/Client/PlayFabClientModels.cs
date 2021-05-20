@@ -1780,7 +1780,8 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Note: When calling 'GetLeaderboardAround...' APIs, the position of the user defaults to 0 when the user does not have
     /// the corresponding statistic.If Facebook friends are included, make sure the access token from previous LoginWithFacebook
-    /// call is still valid and not expired.
+    /// call is still valid and not expired. If Xbox Live friends are included, make sure the access token from the previous
+    /// LoginWithXbox call is still valid and not expired.
     /// </summary>
     [Serializable]
     public class GetFriendLeaderboardAroundPlayerResult : PlayFabResultCommon
@@ -1864,7 +1865,8 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// If any additional services are queried for the user's friends, those friends who also have a PlayFab account registered
     /// for the title will be returned in the results. For Facebook, user has to have logged into the title's Facebook app
-    /// recently, and only friends who also plays this game will be included.
+    /// recently, and only friends who also plays this game will be included. For Xbox Live, user has to have logged into the
+    /// Xbox Live recently, and only friends who also play this game will be included.
     /// </summary>
     [Serializable]
     public class GetFriendsListResult : PlayFabResultCommon
@@ -3161,6 +3163,20 @@ namespace PlayFab.ClientModels
     }
 
     [Serializable]
+    public class LinkAppleRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// If another user is already linked to a specific Apple account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink;
+        /// <summary>
+        /// The JSON Web token (JWT) returned by Apple after login. Represented as the identityToken field in the authorization
+        /// credential payload. Used to validate the request and find the user ID (Apple subject) to link with.
+        /// </summary>
+        public string IdentityToken;
+    }
+
+    [Serializable]
     public class LinkCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3569,7 +3585,9 @@ namespace PlayFab.ClientModels
         CustomServer,
         NintendoSwitch,
         FacebookInstantGames,
-        OpenIdConnect
+        OpenIdConnect,
+        Apple,
+        NintendoSwitchAccount
     }
 
     [Serializable]
@@ -3649,6 +3667,37 @@ namespace PlayFab.ClientModels
         /// Specific Operating System version for the user's device.
         /// </summary>
         public string OS;
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId;
+    }
+
+    [Serializable]
+    public class LoginWithAppleRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount;
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+        /// <summary>
+        /// The JSON Web token (JWT) returned by Apple after login. Represented as the identityToken field in the authorization
+        /// credential payload.
+        /// </summary>
+        public string IdentityToken;
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
@@ -5812,6 +5861,11 @@ namespace PlayFab.ClientModels
     }
 
     [Serializable]
+    public class UnlinkAppleRequest : PlayFabRequestCommon
+    {
+    }
+
+    [Serializable]
     public class UnlinkCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5962,6 +6016,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
+        [Obsolete("No longer available", false)]
         public string XboxToken;
     }
 
@@ -6237,6 +6292,10 @@ namespace PlayFab.ClientModels
         /// </summary>
         public UserAndroidDeviceInfo AndroidDeviceInfo;
         /// <summary>
+        /// Sign in with Apple account information, if an Apple account has been linked
+        /// </summary>
+        public UserAppleIdInfo AppleAccountInfo;
+        /// <summary>
         /// Timestamp indicating when the user account was created
         /// </summary>
         public DateTime Created;
@@ -6270,6 +6329,10 @@ namespace PlayFab.ClientModels
         public UserKongregateInfo KongregateInfo;
         /// <summary>
         /// Nintendo Switch account information, if a Nintendo Switch account has been linked
+        /// </summary>
+        public UserNintendoSwitchAccountIdInfo NintendoSwitchAccountInfo;
+        /// <summary>
+        /// Nintendo Switch device information, if a Nintendo Switch device has been linked
         /// </summary>
         public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo;
         /// <summary>
@@ -6321,6 +6384,15 @@ namespace PlayFab.ClientModels
         /// Android device ID
         /// </summary>
         public string AndroidDeviceId;
+    }
+
+    [Serializable]
+    public class UserAppleIdInfo : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Apple subject ID
+        /// </summary>
+        public string AppleSubjectId;
     }
 
     [Serializable]
@@ -6439,6 +6511,15 @@ namespace PlayFab.ClientModels
     }
 
     [Serializable]
+    public class UserNintendoSwitchAccountIdInfo : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Nintendo Switch account subject ID
+        /// </summary>
+        public string NintendoSwitchAccountSubjectId;
+    }
+
+    [Serializable]
     public class UserNintendoSwitchDeviceIdInfo : PlayFabBaseModel
     {
         /// <summary>
@@ -6487,7 +6568,9 @@ namespace PlayFab.ClientModels
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
-        OpenIdConnect
+        OpenIdConnect,
+        Apple,
+        NintendoSwitchAccount
     }
 
     [Serializable]

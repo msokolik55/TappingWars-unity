@@ -1060,6 +1060,35 @@ namespace PlayFab.AdminModels
         public string Schedule;
     }
 
+    /// <summary>
+    /// Task name is unique within a title. Using a task name that's already taken will cause a name conflict error. Too many
+    /// create-task requests within a short time will cause a create conflict error.
+    /// </summary>
+    [Serializable]
+    public class CreateInsightsScheduledScalingTaskRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Description the task
+        /// </summary>
+        public string Description;
+        /// <summary>
+        /// Whether the schedule is active. Inactive schedule will not trigger task execution.
+        /// </summary>
+        public bool IsActive;
+        /// <summary>
+        /// Name of the task. This is a unique identifier for tasks in the title.
+        /// </summary>
+        public string Name;
+        /// <summary>
+        /// Task details related to Insights Scaling
+        /// </summary>
+        public InsightsScalingTaskParameter Parameter;
+        /// <summary>
+        /// Cron expression for the run schedule of the task. The expression should be in UTC.
+        /// </summary>
+        public string Schedule;
+    }
+
     [Serializable]
     public class CreateOpenIdConnectionRequest : PlayFabRequestCommon
     {
@@ -2106,6 +2135,16 @@ namespace PlayFab.AdminModels
         CloudScriptAzureFunctionsQueueRequestError,
         EvaluationModeTitleCountExceeded,
         InsightsManagementTitleNotInFlight,
+        LimitNotFound,
+        LimitNotAvailableViaAPI,
+        InsightsManagementSetStorageRetentionBelowMinimum,
+        InsightsManagementSetStorageRetentionAboveMaximum,
+        AppleNotEnabledForTitle,
+        InsightsManagementNewActiveEventExportLimitInvalid,
+        InsightsManagementSetPerformanceRateLimited,
+        PartyRequestsThrottledFromRateLimiter,
+        XboxServiceTooManyRequests,
+        NintendoSwitchNotEnabledForTitle,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2162,6 +2201,11 @@ namespace PlayFab.AdminModels
         ExportCouldNotCreate,
         ExportNoBackingDatabaseFound,
         ExportCouldNotDelete,
+        ExportCannotDetermineEventQuery,
+        ExportInvalidQuerySchemaModification,
+        ExportQuerySchemaMissingRequiredColumns,
+        ExportCannotParseQuery,
+        ExportControlCommandsNotAllowed,
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
@@ -2177,7 +2221,10 @@ namespace PlayFab.AdminModels
         ExperimentationNoScorecard,
         ExperimentationTreatmentAssignmentFailed,
         ExperimentationTreatmentAssignmentDisabled,
+        ExperimentationInvalidDuration,
+        ExperimentationMaxExperimentsReached,
         MaxActionDepthExceeded,
+        TitleNotOnUpdatedPricingPlan,
         SnapshotNotFound
     }
 
@@ -3281,6 +3328,15 @@ namespace PlayFab.AdminModels
     }
 
     [Serializable]
+    public class InsightsScalingTaskParameter : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Insights Performance Level to scale to.
+        /// </summary>
+        public int Level;
+    }
+
+    [Serializable]
     public class ItemGrant : PlayFabBaseModel
     {
         /// <summary>
@@ -3493,7 +3549,9 @@ namespace PlayFab.AdminModels
         CustomServer,
         NintendoSwitch,
         FacebookInstantGames,
-        OpenIdConnect
+        OpenIdConnect,
+        Apple,
+        NintendoSwitchAccount
     }
 
     [Serializable]
@@ -4643,7 +4701,8 @@ namespace PlayFab.AdminModels
     {
         CloudScript,
         ActionsOnPlayerSegment,
-        CloudScriptAzureFunctions
+        CloudScriptAzureFunctions,
+        InsightsScheduledScaling
     }
 
     [Serializable]
@@ -5032,6 +5091,10 @@ namespace PlayFab.AdminModels
         /// UTC timestamp when the task completed.
         /// </summary>
         public DateTime? CompletedAt;
+        /// <summary>
+        /// Error message for last processing attempt, if an error occured.
+        /// </summary>
+        public string ErrorMessage;
         /// <summary>
         /// Estimated time remaining in seconds.
         /// </summary>
@@ -5526,6 +5589,10 @@ namespace PlayFab.AdminModels
         /// </summary>
         public UserAndroidDeviceInfo AndroidDeviceInfo;
         /// <summary>
+        /// Sign in with Apple account information, if an Apple account has been linked
+        /// </summary>
+        public UserAppleIdInfo AppleAccountInfo;
+        /// <summary>
         /// Timestamp indicating when the user account was created
         /// </summary>
         public DateTime Created;
@@ -5559,6 +5626,10 @@ namespace PlayFab.AdminModels
         public UserKongregateInfo KongregateInfo;
         /// <summary>
         /// Nintendo Switch account information, if a Nintendo Switch account has been linked
+        /// </summary>
+        public UserNintendoSwitchAccountIdInfo NintendoSwitchAccountInfo;
+        /// <summary>
+        /// Nintendo Switch device information, if a Nintendo Switch device has been linked
         /// </summary>
         public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo;
         /// <summary>
@@ -5610,6 +5681,15 @@ namespace PlayFab.AdminModels
         /// Android device ID
         /// </summary>
         public string AndroidDeviceId;
+    }
+
+    [Serializable]
+    public class UserAppleIdInfo : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Apple subject ID
+        /// </summary>
+        public string AppleSubjectId;
     }
 
     [Serializable]
@@ -5728,6 +5808,15 @@ namespace PlayFab.AdminModels
     }
 
     [Serializable]
+    public class UserNintendoSwitchAccountIdInfo : PlayFabBaseModel
+    {
+        /// <summary>
+        /// Nintendo Switch account subject ID
+        /// </summary>
+        public string NintendoSwitchAccountSubjectId;
+    }
+
+    [Serializable]
     public class UserNintendoSwitchDeviceIdInfo : PlayFabBaseModel
     {
         /// <summary>
@@ -5776,7 +5865,9 @@ namespace PlayFab.AdminModels
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
-        OpenIdConnect
+        OpenIdConnect,
+        Apple,
+        NintendoSwitchAccount
     }
 
     [Serializable]
