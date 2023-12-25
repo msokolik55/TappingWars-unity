@@ -1,4 +1,4 @@
-# Click Battle Game
+# Tapping Wars
 
 ## Overview
 
